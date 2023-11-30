@@ -1,0 +1,295 @@
+﻿<Window x:Class="Task_Manager.View.CrearTarea"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task_Manager.View"
+        mc:Ignorable="d"
+        Title="CrearTarea"
+        Height="450" Width="482"
+        ResizeMode ="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        
+        AllowsTransparency="True"
+        Background="Transparent">
+
+
+    <Border
+        BorderThickness="5,5,0,0" 
+        Background="#FF1E1420" BorderBrush="#FFE6935D"
+        CornerRadius="20,20,0,20">
+
+
+
+        <Border Background="#FF120A14"
+                Margin="69,64,74,69"
+                CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="47*"/>
+                    <ColumnDefinition Width="120*"/>
+                </Grid.ColumnDefinitions>
+                <Label Foreground="#FFE2E2E2"
+                   Content="Nueva Tarea" 
+                   FontFamily="Corbel" 
+                   FontSize="36" Margin="71,-54,71,307" Grid.ColumnSpan="2">
+
+                </Label>
+
+                <Label Foreground="#FFE2E2E2"
+                    Content="Nombre" 
+                    FontFamily="Corbel"
+                    Margin="10,10,88,261" 
+                    Grid.ColumnSpan="2" FontSize="25"
+                />
+                <Label Foreground="#FFE2E2E2"
+                    Content="Descripción" 
+                    FontFamily="Corbel"
+                    Margin="10,85,88,185" 
+                    Grid.ColumnSpan="2" FontSize="25"
+                />
+                <TextBox x:Name="NombreTxtBox" Grid.ColumnSpan="2" 
+                         HorizontalAlignment="Left"
+                         Background="Transparent"
+                         Margin="17,51,0,0" 
+                         TextWrapping="Wrap" 
+                         Text="" 
+                         VerticalAlignment="Top" 
+                         Width="229" 
+                         Height="20" 
+                         BorderBrush="#FFE6935D" 
+                         Foreground="#FFACACAC"
+                         BorderThickness="0,0,0,1" FontSize="16"/>
+                <TextBox x:Name="DescripTxtBox" Grid.ColumnSpan="2" 
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Margin="17,127,0,0" 
+                    TextWrapping="Wrap" 
+                    Text="" 
+                    VerticalAlignment="Top" 
+                    Width="229" 
+                    Height="20" 
+                    BorderBrush="#FFE6935D" 
+                    Foreground="#FFACACAC"
+                    BorderThickness="0,0,0,1" FontSize="16"/>
+
+                <Label Foreground="#FFE2E2E2"
+                    Content="Fecha&#xD;&#xA;" 
+                    FontFamily="Corbel"
+                    Margin="17,206,81,64" 
+                    Grid.ColumnSpan="2" FontSize="25"
+                />
+
+
+                <Label Foreground="#FFE2E2E2"
+                    Content="H&#xA;" 
+                    FontFamily="Corbel"
+                    Margin="22,247,51,39" FontSize="15" RenderTransformOrigin="1.305,-0.056"
+                />
+                <TextBox x:Name="TxtBox_Hora" 
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Margin="47,250,0,0" 
+                    TextWrapping="Wrap" 
+                    Text="" 
+                    VerticalAlignment="Top" 
+                    Width="31" 
+                    Height="20" 
+                    BorderBrush="#FFE6935D" 
+                    Foreground="#FFACACAC"
+                    BorderThickness="0,0,0,1"
+                    FontSize="16"
+                    MaxLength="2"/>
+                <Label Foreground="#FFE2E2E2"
+                    Content="M" 
+                    FontFamily="Corbel"
+                    Margin="1,247,218,39" FontSize="15" RenderTransformOrigin="1.305,-0.056" Grid.Column="1"
+                />
+                <TextBox x:Name="TxtBox_Min" 
+                    HorizontalAlignment="Left"
+                    Background="Transparent"
+                    Margin="26,250,0,0" 
+                    TextWrapping="Wrap" 
+                    Text="" 
+                    VerticalAlignment="Top" 
+                    Width="31" 
+                    Height="20" 
+                    BorderBrush="#FFE6935D" 
+                    Foreground="#FFACACAC"
+                    BorderThickness="0,0,0,1"
+                    FontSize="16"
+                    MaxLength="2" Grid.Column="1"/>
+
+                <Grid>
+                    <DatePicker x:Name="DatePicker"
+                    
+                    Margin="22,278,-73,0" 
+                    VerticalAlignment="Top"
+                    BorderThickness="0"
+                    />
+                </Grid>
+
+
+
+                <Button x:Name="BtnCancelar"
+                    Content="✖"
+                    FontSize="10"
+                    Opacity="2"
+                    Foreground="White"
+                    BorderThickness="0"
+        
+                    Background="#FFFC3636"
+                    Padding="0" 
+                    RenderTransformOrigin="0.5,0.5" 
+                    HorizontalAlignment="Left"
+                    Width="76" Grid.Column="1" Margin="134,260,0,-28" Click="BtnCancelar_Click">
+
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse x:Name="ellipse"
+                                    Fill="{TemplateBinding Background}"
+                                    Width="30"
+                                    Height="30"
+                                    Opacity="1"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse"
+                                                Storyboard.TargetProperty="Width"
+                                                To="60"
+                                                Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse"
+                                                Storyboard.TargetProperty="Height"
+                                                To="60"
+                                                Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="FontSize"
+                                            To="20"
+                                            Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse"
+                                                Storyboard.TargetProperty="Width"
+                                                To="30"
+                                                Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse"
+                                                Storyboard.TargetProperty="Height"
+                                                To="30"
+                                                Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="FontSize"
+                                            To="10"
+                                            Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="BtnRegistrar" Content="✔"
+                FontSize="20"
+                Opacity="2"
+                HorizontalAlignment="Left"
+                Margin="159,232,0,0"
+                VerticalAlignment="Top"
+                Height="80"
+                Foreground="White"
+                Width="80"
+                BorderThickness="0"
+                Background="#FFE6935D"
+                Padding="0" 
+                RenderTransformOrigin="0.5,0.5"
+                Grid.Column="1" Click="BtnRegistrarClick">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse x:Name="ellipse"
+                        Fill="{TemplateBinding Background}"
+                        Width="50"
+                        Height="50"
+                        Opacity="1"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse"
+                                    Storyboard.TargetProperty="Width"
+                                    To="80"
+                                    Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse"
+                                    Storyboard.TargetProperty="Height"
+                                    To="80"
+                                    Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="FontSize"
+                                    To="40"
+                                    Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse"
+                                    Storyboard.TargetProperty="Width"
+                                    To="50"
+                                    Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse"
+                                    Storyboard.TargetProperty="Height"
+                                    To="50"
+                                    Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="FontSize"
+                                    To="30"
+                                    Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <RadioButton x:Name="BtnPrioridad" 
+                             Content="Prioridad alta"
+                             HorizontalAlignment="Left" 
+                             Margin="22,170,0,0" 
+                             VerticalAlignment="Top" 
+                             Grid.ColumnSpan="2" 
+                             Height="24" 
+                             Width="129" 
+                             Foreground="#FFFAFAFA" 
+                             FontFamily="Corbel" 
+                             FontSize="20"/>
+
+            </Grid>
+
+        </Border>
+    </Border>
+
+
+</Window>
+    
