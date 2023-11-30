@@ -73,6 +73,7 @@ namespace Task_Manager.View
 
             await Task.Delay(600);
             this.Close();
+
         }
     }
 }

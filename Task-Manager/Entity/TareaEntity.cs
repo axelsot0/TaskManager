@@ -13,6 +13,6 @@ namespace Task_Manager.Entity
         public bool prioridad { get; set; }
         public bool Due { get; set; }
         public DateTime Deadline { get; set; }
-        public TimeSpan hora { get; set; }
+        
     }
 }

@@ -42,11 +42,14 @@ namespace Task_Manager.View
 
         private async void btnClose_Click(object sender, RoutedEventArgs e)
         {
+            
             DoubleAnimation anim = new DoubleAnimation(ActualHeight, 0, TimeSpan.FromSeconds(0.5));
             this.BeginAnimation(Window.HeightProperty, anim);
             await Task.Delay(600);
             this.Close();
+            
         }
+
         private async void btnLogIn_Click(object sender, RoutedEventArgs e)
         {
             // Animaciones para la ventana actual
