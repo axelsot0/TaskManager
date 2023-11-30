@@ -67,9 +67,12 @@ namespace Task_Manager.View
             CrearTarea VentanaCrear = new CrearTarea();
 
             VentanaCrear.Show();
-
+            
             DoubleAnimation heightAnim = new DoubleAnimation(0, 450, TimeSpan.FromSeconds(0.6)); // Aumento gradual de 0 a 300
             VentanaCrear.BeginAnimation(Window.HeightProperty, heightAnim);
+
+            await Task.Delay(600);
+            this.Close();
         }
     }
 }
