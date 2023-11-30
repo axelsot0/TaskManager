@@ -21,6 +21,7 @@ namespace Task_Manager.View
     {
         public CrearTarea()
         {
+            InitializeComponent();
             DatePicker.DisplayDateStart = DateTime.Today;
         }
         public void borrarCampos()
@@ -56,10 +57,8 @@ namespace Task_Manager.View
         }
 
 
-        private async void BtnCancelar_Click(object sender, RoutedEventArgs e)
+        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
-
-
 
             borrarCampos();
             this.Close();

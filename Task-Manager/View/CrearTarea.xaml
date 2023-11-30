@@ -143,7 +143,8 @@
                     Padding="0" 
                     RenderTransformOrigin="0.5,0.5" 
                     HorizontalAlignment="Left"
-                    Width="76" Grid.Column="1" Margin="134,260,0,-28" Click="BtnCancelar_Click">
+                    Width="76" Grid.Column="1" Margin="134,260,0,-28"
+                    Click="BtnCancelar_Click">
 
                     <Button.RenderTransform>
                         <TransformGroup>
