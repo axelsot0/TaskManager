@@ -12,6 +12,9 @@
         MouseDown="Window_MouseDown"
         AllowsTransparency="True"
         Background="#FF1E1420" BorderBrush="#FFE6935D">
+    <Window.Resources>
+        <XmlDataProvider x:Key="customerdata" Source="customers.xml" XPath="Data" />
+    </Window.Resources>
 
     <Border BorderBrush="#FFE6935D"
             BorderThickness="0,6,0,0"
@@ -181,6 +184,15 @@
                     </Style>
                 </Button.Style>
             </Button>
+            <DataGrid x:Name="Tabla" Margin="78,77,78,43" 
+          Background="Black"
+          Foreground="White"
+          BorderThickness="3" 
+          BorderBrush="#FFDC9464"
+          AutoGenerateColumns="True">
+                
+            </DataGrid>
+
             <Button Content="+"
                 FontSize="60"
                 Opacity="2"

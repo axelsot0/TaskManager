@@ -26,7 +26,9 @@ namespace Task_Manager.View
         {
             InitializeComponent();
             DatePicker.DisplayDateStart = DateTime.Today;
+            
         }
+       
         public void borrarCampos()
         {
             NombreTxtBox.Text = string.Empty;
@@ -85,7 +87,7 @@ namespace Task_Manager.View
             string jsonString = JsonSerializer.Serialize(Tarea);
             // Utilizando System.IO.Path para manejar rutas de archivo
             string rutaDirectorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Entity");
-            string rutaArchivo = System.IO.Path.Combine(rutaDirectorio, "persona.json");
+            string rutaArchivo = System.IO.Path.Combine(rutaDirectorio, "Tarea.json");
             
             try
             {

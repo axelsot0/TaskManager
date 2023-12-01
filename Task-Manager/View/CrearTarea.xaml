@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Task_Manager.View"
+        xmlns:local="clr-namespace:Task_Manager.View" xmlns:system="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:System="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d"
         Title="CrearTarea"
         Height="450" Width="482"
@@ -14,25 +14,16 @@
         AllowsTransparency="True"
         Background="Transparent">
 
-    
+
     <Window.Resources>
         <Style TargetType="DatePickerTextBox" x:Key="CustomDatePickerTextBoxStyle">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
-        <Storyboard x:Key="BorderAnimation">
-            <ThicknessAnimationUsingKeyFrames Storyboard.TargetName="AnimatedBorder"
-                                          Storyboard.TargetProperty="BorderThickness">
-                <LinearThicknessKeyFrame KeyTime="0:0:0" Value="0"/>
-                <LinearThicknessKeyFrame KeyTime="0:0:1" Value="5,0,0,0"/>
-            </ThicknessAnimationUsingKeyFrames>
 
-            <ColorAnimation Storyboard.TargetName="AnimatedBorder"
-                        Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
-                        From="#FFFFFF" To="#FFE6935D"
-                        Duration="0:0:1"/>
-        </Storyboard>
+
     </Window.Resources>
+
 
 
     <Border
@@ -46,37 +37,73 @@
                 Margin="72,89,71,44"
                 CornerRadius="10">
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35*"/>
+                    <RowDefinition Height="277*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="47*"/>
                     <ColumnDefinition Width="120*"/>
                 </Grid.ColumnDefinitions>
-                <Border></Border>
                 <Label Foreground="#FFE2E2E2"
-                   Content="Nueva Tarea" 
-                   FontFamily="Corbel" 
-                   FontSize="36" Margin="-11,-74,153,327"
-                       Grid.ColumnSpan="2" 
-                       BorderBrush="#FFE6935D"
-                       >
+       Content="Nueva Tarea" 
+       FontFamily="Corbel" 
+       FontSize="36" Margin="-11,-74,133,50" 
+       BorderBrush="#FFE6935D"
+       Opacity="0"
+       BorderThickness="0,0,0,0" Grid.ColumnSpan="2">
+                    <Label.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <!-- Animación para el Margin -->
+                                    <ThicknessAnimation 
+                        Storyboard.TargetProperty="BorderThickness"
+                        From="0,0,0,0" To="5,0,0,0" Duration="0:0:1.5">
+                                        <ThicknessAnimation.BeginTime>
+                                            <System:TimeSpan>0:0:3 </System:TimeSpan>
+                                            <!-- Retraso de 5 segundos -->
+                                        </ThicknessAnimation.BeginTime>
+                                    </ThicknessAnimation>
 
+                                    <!-- Animación para el BorderThickness -->
+                                    <DoubleAnimation 
+                        Storyboard.TargetProperty="Opacity"
+                        From="0" To="1" Duration="0:0:1.5">
+                                        <DoubleAnimation.BeginTime>
+                                            <System:TimeSpan>0:0:2</System:TimeSpan>
+                                            <!-- Retraso de 2 segundos -->
+                                        </DoubleAnimation.BeginTime>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Label.Triggers>
                 </Label>
+
+
+
+
+
+
+
 
                 <Label Foreground="#FFE2E2E2"
                     Content="Nombre" 
                     FontFamily="Corbel"
                     Margin="10,10,88,261" 
-                    Grid.ColumnSpan="2" FontSize="25"
+                    Grid.ColumnSpan="2" FontSize="25" Grid.RowSpan="2"
                 />
                 <Label Foreground="#FFE2E2E2"
                     Content="Descripción" 
                     FontFamily="Corbel"
-                    Margin="10,85,88,185" 
-                    Grid.ColumnSpan="2" FontSize="25"
+                    Margin="10,50,88,185" 
+                    Grid.ColumnSpan="2" FontSize="25" Grid.Row="1"
                 />
                 <TextBox x:Name="NombreTxtBox" Grid.ColumnSpan="2" 
                          HorizontalAlignment="Left"
                          Background="Transparent"
-                         Margin="17,51,0,0" 
+                         Margin="17,16,0,0" 
                          TextWrapping="Wrap" 
                          Text="" 
                          VerticalAlignment="Top" 
@@ -84,11 +111,11 @@
                          Height="20" 
                          BorderBrush="#FFE6935D" 
                          Foreground="#FFACACAC"
-                         BorderThickness="0,0,0,2" FontSize="16"/>
+                         BorderThickness="0,0,0,2" FontSize="16" Grid.Row="1"/>
                 <TextBox x:Name="DescripTxtBox" Grid.ColumnSpan="2" 
                     HorizontalAlignment="Left"
                     Background="Transparent"
-                    Margin="17,127,0,0" 
+                    Margin="17,92,0,0" 
                     TextWrapping="Wrap" 
                     Text="" 
                     VerticalAlignment="Top" 
@@ -96,25 +123,25 @@
                     Height="20" 
                     BorderBrush="#FFE6935D" 
                     Foreground="#FFACACAC"
-                    BorderThickness="0,0,0,2" FontSize="16"/>
+                    BorderThickness="0,0,0,2" FontSize="16" Grid.Row="1"/>
 
                 <Label Foreground="#FFE2E2E2"
                     Content="Fecha&#xD;&#xA;" 
                     FontFamily="Corbel"
-                    Margin="17,206,81,64" 
-                    Grid.ColumnSpan="2" FontSize="25"
+                    Margin="17,171,81,64" 
+                    Grid.ColumnSpan="2" FontSize="25" Grid.Row="1"
                 />
 
 
                 <Label Foreground="#FFE2E2E2"
                     Content="H&#xA;" 
                     FontFamily="Corbel"
-                    Margin="22,247,51,39" FontSize="15" RenderTransformOrigin="1.305,-0.056"
+                    Margin="22,212,51,39" FontSize="15" RenderTransformOrigin="1.305,-0.056" Grid.Row="1"
                 />
                 <TextBox x:Name="TxtBox_Hora" 
                     HorizontalAlignment="Left"
                     Background="Transparent"
-                    Margin="47,250,0,0" 
+                    Margin="47,215,0,0" 
                     TextWrapping="Wrap" 
                     Text="" 
                     VerticalAlignment="Top" 
@@ -124,16 +151,16 @@
                     Foreground="#FFACACAC"
                     BorderThickness="0,0,0,1"
                     FontSize="16"
-                    MaxLength="2"/>
+                    MaxLength="2" Grid.Row="1"/>
                 <Label Foreground="#FFE2E2E2"
                     Content="M" 
                     FontFamily="Corbel"
-                    Margin="1,247,218,39" FontSize="15" RenderTransformOrigin="1.305,-0.056" Grid.Column="1"
+                    Margin="1,212,218,39" FontSize="15" RenderTransformOrigin="1.305,-0.056" Grid.Column="1" Grid.Row="1"
                 />
                 <TextBox x:Name="TxtBox_Min" 
                     HorizontalAlignment="Left"
                     Background="Transparent"
-                    Margin="26,250,0,0" 
+                    Margin="26,215,0,0" 
                     TextWrapping="Wrap" 
                     Text="" 
                     VerticalAlignment="Top" 
@@ -143,9 +170,9 @@
                     Foreground="#FFACACAC"
                     BorderThickness="0,0,0,1"
                     FontSize="16"
-                    MaxLength="2" Grid.Column="1"/>
+                    MaxLength="2" Grid.Column="1" Grid.Row="1"/>
 
-                <Grid>
+                <Grid Grid.RowSpan="2">
                     <DatePicker x:Name="DatePicker" 
             Margin="22,278,-73,0" 
             VerticalAlignment="Top"
@@ -170,8 +197,8 @@
                     Padding="0" 
                     RenderTransformOrigin="0.5,0.5" 
                     HorizontalAlignment="Left"
-                    Width="76" Grid.Column="1" Margin="134,260,0,-28"
-                    Click="BtnCancelar_Click">
+                    Width="76" Grid.Column="1" Margin="134,225,0,-28"
+                    Click="BtnCancelar_Click" Grid.Row="1">
 
                     <Button.RenderTransform>
                         <TransformGroup>
@@ -234,7 +261,7 @@
                 FontSize="20"
                 Opacity="2"
                 HorizontalAlignment="Left"
-                Margin="159,232,0,0"
+                Margin="159,197,0,0"
                 VerticalAlignment="Top"
                 Height="80"
                 Foreground="White"
@@ -243,7 +270,7 @@
                 Background="#FFE6935D"
                 Padding="0" 
                 RenderTransformOrigin="0.5,0.5"
-                Grid.Column="1" Click="BtnRegistrarClick">
+                Grid.Column="1" Click="BtnRegistrarClick" Grid.Row="1">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -304,24 +331,17 @@
                 <RadioButton x:Name="BtnPrioridad" 
                              Content="Prioridad alta"
                              HorizontalAlignment="Left" 
-                             Margin="22,170,0,0" 
+                             Margin="22,135,0,0" 
                              VerticalAlignment="Top" 
                              Grid.ColumnSpan="2" 
                              Height="24" 
                              Width="129" 
                              Foreground="#FFFAFAFA" 
                              FontFamily="Corbel" 
-                             FontSize="20"/>
+                             FontSize="20" Grid.Row="1"/>
                 <TextBlock x:Name="Textblock" HorizontalAlignment="Left" Margin="-64,-146,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" Width="398"/>
-                <Border x:Name="AnimatedBorder"
-        BorderBrush="#FFFFFF"
-        BorderThickness="0"
-        Margin="-30,-73,152,327"
-        Grid.ColumnSpan="2"
-        CornerRadius="0">
-                    <!-- Contenido dentro del borde -->
-                </Border>
-                
+                <Border BorderThickness="1" Background="#FF1E1420" Margin="-72,-74,105,42"/>
+
 
 
             </Grid>
