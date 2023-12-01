@@ -37,6 +37,11 @@ namespace Task_Manager.View
             DatePicker.Text = string.Empty;
 
         }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var borderAnimation = FindResource("BorderAnimation") as Storyboard;
+            borderAnimation?.Begin();
+        }
 
         public void NuevaTarea()
         {

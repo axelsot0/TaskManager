@@ -14,6 +14,26 @@
         AllowsTransparency="True"
         Background="Transparent">
 
+    
+    <Window.Resources>
+        <Style TargetType="DatePickerTextBox" x:Key="CustomDatePickerTextBoxStyle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Storyboard x:Key="BorderAnimation">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetName="AnimatedBorder"
+                                          Storyboard.TargetProperty="BorderThickness">
+                <LinearThicknessKeyFrame KeyTime="0:0:0" Value="0"/>
+                <LinearThicknessKeyFrame KeyTime="0:0:1" Value="5,0,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+
+            <ColorAnimation Storyboard.TargetName="AnimatedBorder"
+                        Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                        From="#FFFFFF" To="#FFE6935D"
+                        Duration="0:0:1"/>
+        </Storyboard>
+    </Window.Resources>
+
 
     <Border
         BorderThickness="5,5,0,0" 
@@ -23,17 +43,21 @@
 
 
         <Border Background="#FF120A14"
-                Margin="69,64,74,69"
+                Margin="72,89,71,44"
                 CornerRadius="10">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="47*"/>
                     <ColumnDefinition Width="120*"/>
                 </Grid.ColumnDefinitions>
+                <Border></Border>
                 <Label Foreground="#FFE2E2E2"
                    Content="Nueva Tarea" 
                    FontFamily="Corbel" 
-                   FontSize="36" Margin="71,-54,71,307" Grid.ColumnSpan="2">
+                   FontSize="36" Margin="-11,-74,153,327"
+                       Grid.ColumnSpan="2" 
+                       BorderBrush="#FFE6935D"
+                       >
 
                 </Label>
 
@@ -60,7 +84,7 @@
                          Height="20" 
                          BorderBrush="#FFE6935D" 
                          Foreground="#FFACACAC"
-                         BorderThickness="0,0,0,1" FontSize="16"/>
+                         BorderThickness="0,0,0,2" FontSize="16"/>
                 <TextBox x:Name="DescripTxtBox" Grid.ColumnSpan="2" 
                     HorizontalAlignment="Left"
                     Background="Transparent"
@@ -72,7 +96,7 @@
                     Height="20" 
                     BorderBrush="#FFE6935D" 
                     Foreground="#FFACACAC"
-                    BorderThickness="0,0,0,1" FontSize="16"/>
+                    BorderThickness="0,0,0,2" FontSize="16"/>
 
                 <Label Foreground="#FFE2E2E2"
                     Content="Fecha&#xD;&#xA;" 
@@ -122,12 +146,15 @@
                     MaxLength="2" Grid.Column="1"/>
 
                 <Grid>
-                    <DatePicker x:Name="DatePicker"
-                    
-                    Margin="22,278,-73,0" 
-                    VerticalAlignment="Top"
-                    BorderThickness="0"
-                    />
+                    <DatePicker x:Name="DatePicker" 
+            Margin="22,278,-73,0" 
+            VerticalAlignment="Top"
+            BorderThickness="0">
+                        <DatePicker.Resources>
+                            <Style BasedOn="{StaticResource CustomDatePickerTextBoxStyle}" 
+               TargetType="DatePickerTextBox" />
+                        </DatePicker.Resources>
+                    </DatePicker>
                 </Grid>
 
 
@@ -285,7 +312,17 @@
                              Foreground="#FFFAFAFA" 
                              FontFamily="Corbel" 
                              FontSize="20"/>
-                <TextBlock x:Name="Textblock" HorizontalAlignment="Left" Margin="-64,-67,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" Width="398"/>
+                <TextBlock x:Name="Textblock" HorizontalAlignment="Left" Margin="-64,-146,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" Width="398"/>
+                <Border x:Name="AnimatedBorder"
+        BorderBrush="#FFFFFF"
+        BorderThickness="0"
+        Margin="-30,-73,152,327"
+        Grid.ColumnSpan="2"
+        CornerRadius="0">
+                    <!-- Contenido dentro del borde -->
+                </Border>
+                
+
 
             </Grid>
 
