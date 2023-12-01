@@ -77,31 +77,27 @@ namespace Task_Manager.View
 
 
             }
-            string nombreDirectorio = "Entity";
-            string nombreArchivo = "persona.json";
-
-            // Ruta del directorio de datos de la aplicación
-            string rutaDirectorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), nombreDirectorio);
-
-            // Ruta completa del archivo
-            string rutaArchivo = System.IO.Path.Combine(rutaDirectorio, nombreArchivo);
-
+            string jsonString = JsonSerializer.Serialize(Tarea);
+            // Utilizando System.IO.Path para manejar rutas de archivo
+            string rutaDirectorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Entity");
+            string rutaArchivo = System.IO.Path.Combine(rutaDirectorio, "persona.json");
+            
             try
             {
-                // Si el directorio no existe, créalo
-                if (!Directory.Exists(rutaDirectorio))
+                if (!System.IO.Directory.Exists(rutaDirectorio))
                 {
-                    Directory.CreateDirectory(rutaDirectorio);
+                    System.IO.Directory.CreateDirectory(rutaDirectorio);
                 }
 
                 // Ahora intenta escribir el archivo
-                File.WriteAllText(rutaArchivo, "Datos que quieres escribir en el archivo...");
-                Console.WriteLine("Archivo creado correctamente en: " + rutaArchivo);
+                File.AppendAllText(rutaArchivo, jsonString);
+                Textblock.Text =("Archivo creado correctamente en: " + rutaArchivo);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al escribir en el archivo: " + ex.Message);
+                Textblock.Text = ("Error al escribir en el archivo: " + ex.Message);
             }
+
 
 
 

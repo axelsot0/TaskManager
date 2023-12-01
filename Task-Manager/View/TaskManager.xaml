@@ -120,6 +120,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
+                <TextBlock x:Name="TextBlock" HorizontalAlignment="Left" Margin="65,67,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="303" Width="316" Foreground="White" FontSize="14"/>
 
 
             </Grid>
