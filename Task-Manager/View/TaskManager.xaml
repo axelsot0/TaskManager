@@ -189,7 +189,8 @@
           Foreground="White"
           BorderThickness="3" 
           BorderBrush="#FFDC9464"
-          AutoGenerateColumns="True">
+          AutoGenerateColumns="True" 
+          >
                 
             </DataGrid>
 

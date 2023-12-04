@@ -25,31 +25,47 @@ namespace Task_Manager.View
     /// </summary>
     public partial class TaskManager : Window
     {
+        private void LoadDataGrid()
+        {
+            try
+            {
+                string directorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Entity");
+                string rutaArchivo = System.IO.Path.Combine(directorio, "Tarea.json");
+
+                if (!System.IO.Directory.Exists(directorio))
+                {
+                    System.IO.Directory.CreateDirectory(directorio);
+                }
+                else if (!System.IO.File.Exists(rutaArchivo))
+                {
+                    // El archivo no existe en el directorio, manejar este caso
+                    // Puedes crear el archivo o mostrar un mensaje al usuario
+                }
+                else
+                {
+                    string json = File.ReadAllText(rutaArchivo);
+
+                    // Convierte el JSON a una lista de objetos (suponiendo que sean objetos con Id, Name y Age)
+                    List<TareaEntity> tareas = JsonConvert.DeserializeObject<List<TareaEntity>>(json);
+
+                    // Asigna la lista como origen de datos para el DataGrid
+                    Tabla.ItemsSource = tareas;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier excepción que pueda ocurrir durante la carga de datos
+                // Puedes mostrar un mensaje de error o registrar la excepción
+                Console.WriteLine("Error al cargar datos: " + ex.Message);
+            }
+        }
+
         public TaskManager()
         {
             InitializeComponent();
             LoadDataGrid();
         }
-        private void LoadDataGrid()
-        {
-            
-                // Utilizando System.IO.Path para manejar rutas de archivo
-            string rutaDirectorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Entity");
-            string rutaArchivo = System.IO.Path.Combine(rutaDirectorio, "Tarea.json");
-            if (!System.IO.Directory.Exists(rutaDirectorio))
-            {
-                // Lee el contenido del archivo JSON
-                string jsonFilePath = rutaArchivo; // Reemplaza con la ruta real
-                string json = File.ReadAllText(jsonFilePath);
-
-                // Convierte el JSON a una lista de objetos (suponiendo que sean objetos con Id, Name y Age)
-                List<TareaEntity> Tareas = JsonConvert.DeserializeObject<List<TareaEntity>>(json);
-
-                // Asigna la lista como origen de datos para el DataGrid
-                Tabla.ItemsSource = Tareas;
-            }
-            
-        }
+        
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -101,5 +117,7 @@ namespace Task_Manager.View
             this.Close();
 
         }
+
+        
     }
 }
