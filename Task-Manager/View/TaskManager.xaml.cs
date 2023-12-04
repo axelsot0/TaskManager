@@ -45,7 +45,7 @@ namespace Task_Manager.View
                 {
                     string json = File.ReadAllText(rutaArchivo);
 
-                    // Convierte el JSON a una lista de objetos (suponiendo que sean objetos con Id, Name y Age)
+                    // Convierte el JSON a una lista de objetos (suponiendo que sean objetos con las propiedades Name, Description, Prioridad y Deadline)
                     List<TareaEntity> tareas = JsonConvert.DeserializeObject<List<TareaEntity>>(json);
 
                     // Asigna la lista como origen de datos para el DataGrid

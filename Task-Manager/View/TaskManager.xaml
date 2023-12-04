@@ -13,8 +13,27 @@
         AllowsTransparency="True"
         Background="#FF1E1420" BorderBrush="#FFE6935D">
     <Window.Resources>
-        <XmlDataProvider x:Key="customerdata" Source="customers.xml" XPath="Data" />
+        <Style x:Key="HeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#FFDC9464" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                        <Border Background="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CustomColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FFDC9464"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+
     </Window.Resources>
+
 
     <Border BorderBrush="#FFE6935D"
             BorderThickness="0,6,0,0"
@@ -185,13 +204,26 @@
                 </Button.Style>
             </Button>
             <DataGrid x:Name="Tabla" Margin="78,77,78,43" 
-          Background="Black"
+          Background="#FF150D17"
           Foreground="White"
           BorderThickness="3" 
           BorderBrush="#FFDC9464"
-          AutoGenerateColumns="True" 
-          >
+          AutoGenerateColumns="False" 
+                >
                 
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" HeaderStyle="{StaticResource HeaderStyle}" />
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" HeaderStyle="{StaticResource HeaderStyle}" />
+                    <DataGridTextColumn Header="Prioridad" Binding="{Binding Prioridad}" HeaderStyle="{StaticResource HeaderStyle}" />
+                    <DataGridTextColumn Header="Deadline" Binding="{Binding Deadline}" HeaderStyle="{StaticResource HeaderStyle}" />
+                </DataGrid.Columns>
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0.5"/>
+                        <Setter Property="BorderBrush" Value="#FFDC9464"/>
+                    </Style>
+                </DataGrid.Resources>
             </DataGrid>
 
             <Button Content="+"
