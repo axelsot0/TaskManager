@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task_Manager.View"
         mc:Ignorable="d"
-        Title="TaskManager" Height="450" Width="482"
+        Title="TaskManager" Height="450" Width="800"
         ResizeMode ="NoResize"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -47,7 +47,7 @@
                     Foreground="#FFF19A61"
                     Background="Transparent"
                     FontSize="20"
-                    FontFamily="Montserrat" HorizontalAlignment="Left" Width="24" Margin="426,0,0,414"
+                    FontFamily="Montserrat" HorizontalAlignment="Left" Width="24" Margin="732,0,0,414"
                     Click="btnMinimize_Click">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -97,7 +97,7 @@
                     Background="Transparent"
                     FontSize="20"
                     FontFamily="Montserrat"
-                    Margin="452,0,10,414"
+                    Margin="761,0,10,414"
                     Click="btnClose_Click">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -151,7 +151,7 @@
             Background="Transparent"
             FontSize="60"
             Foreground="#FFCE9476"
-            Margin="0,0,416,374"
+            Margin="0,0,709,374"
             RenderTransformOrigin="0.5,0.5"
             Click="ReturnBtn_Click" BorderBrush="#FFCE9476">
                 <Button.RenderTransform>
@@ -210,12 +210,12 @@
           BorderBrush="#FFDC9464"
           AutoGenerateColumns="False" 
                 >
-                
+
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" HeaderStyle="{StaticResource HeaderStyle}" />
-                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" HeaderStyle="{StaticResource HeaderStyle}" />
-                    <DataGridTextColumn Header="Prioridad" Binding="{Binding Prioridad}" HeaderStyle="{StaticResource HeaderStyle}" />
-                    <DataGridTextColumn Header="Deadline" Binding="{Binding Deadline}" HeaderStyle="{StaticResource HeaderStyle}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" HeaderStyle="{StaticResource HeaderStyle}" Width="150" />
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" HeaderStyle="{StaticResource HeaderStyle}" Width="180" />
+                    <DataGridTextColumn Header="Prioridad" Binding="{Binding Prioridad}" HeaderStyle="{StaticResource HeaderStyle}" Width="80" />
+                    <DataGridTextColumn Header="Deadline" Binding="{Binding Deadline}" HeaderStyle="{StaticResource HeaderStyle}" Width="150" />
                 </DataGrid.Columns>
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -230,7 +230,7 @@
                 FontSize="60"
                 Opacity="2"
                 HorizontalAlignment="Left"
-                Margin="391,354,0,0"
+                Margin="685,349,0,0"
                 VerticalAlignment="Top"
                 Height="80"
                 Foreground="White"

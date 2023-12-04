@@ -59,7 +59,7 @@
                                     <!-- Animación para el Margin -->
                                     <ThicknessAnimation 
                         Storyboard.TargetProperty="BorderThickness"
-                        From="0,0,0,0" To="5,0,0,0" Duration="0:0:1.5">
+                        From="0,0,0,0" To="0,0,0,5" Duration="0:0:1.5">
                                         <ThicknessAnimation.BeginTime>
                                             <System:TimeSpan>0:0:3 </System:TimeSpan>
                                             <!-- Retraso de 5 segundos -->
