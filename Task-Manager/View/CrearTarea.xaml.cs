@@ -156,7 +156,19 @@ namespace Task_Manager.View
 
         private void BtnRegistrarClick(object sender, RoutedEventArgs e)
         {
-            TareaEntity nuevaTarea = new TareaEntity(); 
+            string nombre = NombreTxtBox.Text; // Reemplaza esto con el valor deseado
+            string descripcion = DescripTxtBox.Text; // Reemplaza esto con el valor deseado
+            bool prioridad = BtnPrioridad.IsChecked.Value; // Reemplaza esto con el valor deseado
+            DateTime deadline = ObtenerHoraFecha(); // Reemplaza esto con el valor deseado
+
+            TareaEntity nuevaTarea = new TareaEntity
+            {
+                Name = nombre,
+                Description = descripcion,
+                prioridad = prioridad,
+                Deadline = deadline
+            };
+
             AgregarNuevaTarea(nuevaTarea);
             TaskManager home = new TaskManager();
             home.Show();
