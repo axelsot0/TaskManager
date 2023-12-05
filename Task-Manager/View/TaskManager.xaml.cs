@@ -49,7 +49,7 @@ namespace Task_Manager.View
                     List<TareaEntity> tareas = JsonConvert.DeserializeObject<List<TareaEntity>>(json);
 
                     // Asigna la lista como origen de datos para el DataGrid
-                    Tabla.ItemsSource = tareas;
+                    Tabla.ItemsSource = tareas; // Aquí se establece ItemsSource en lugar de usar Tabla.Items.Add(tareas)
                 }
             }
             catch (Exception ex)
@@ -59,6 +59,7 @@ namespace Task_Manager.View
                 Console.WriteLine("Error al cargar datos: " + ex.Message);
             }
         }
+
 
         public TaskManager()
         {

@@ -52,29 +52,28 @@ namespace Task_Manager.View
 
         private async void btnLogIn_Click(object sender, RoutedEventArgs e)
         {
-            // Animaciones para la ventana actual
             DoubleAnimation anim = new DoubleAnimation(ActualHeight, 0, TimeSpan.FromSeconds(0.6));
             this.BeginAnimation(Window.HeightProperty, anim);
 
-            DoubleAnimation borderOpacityAnim = new DoubleAnimation(0, TimeSpan.FromSeconds(0.6));
-            btnLogIn.BorderBrush.BeginAnimation(SolidColorBrush.OpacityProperty, borderOpacityAnim);
-
-            DoubleAnimation contentOpacityAnim = new DoubleAnimation(0, TimeSpan.FromSeconds(0.6));
-            btnLogIn.Foreground.BeginAnimation(SolidColorBrush.OpacityProperty, contentOpacityAnim);
+            // ... (Otras animaciones)
 
             await Task.Delay(600); // Esperar el tiempo de las animaciones (600ms en este caso)
 
             // Cerrar la ventana actual después de las animaciones
 
 
+            // Asegurarse de que la ventana actual se haya cerrado antes de abrir la nueva ventana
+            await Task.Delay(100); // Puedes ajustar este retraso según sea necesario
+
             // Mostrar la nueva ventana TaskManager
             TaskManager home = new TaskManager();
             home.Show();
-            this.Close();
 
             // Animaciones para la nueva ventana TaskManager
             DoubleAnimation heightAnim = new DoubleAnimation(0, 450, TimeSpan.FromSeconds(0.6)); // Aumento gradual de 0 a 300
             home.BeginAnimation(Window.HeightProperty, heightAnim);
+            this.Close();
+
         }
     }
 }

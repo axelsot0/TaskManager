@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using Task_Manager.Entity;
 using System.Text.Json;
 using System.IO;
+using System.Threading;
+
 namespace Task_Manager.View
 {
     /// <summary>
@@ -39,12 +41,59 @@ namespace Task_Manager.View
             DatePicker.Text = string.Empty;
 
         }
+        public DateTime ObtenerHoraFecha()
+        {
+            TareaEntity Tarea = new TareaEntity();
+            int hora, minuto;
+            if (int.TryParse(TxtBox_Hora.Text, out hora) && int.TryParse(TxtBox_Min.Text, out minuto))
+            {
+
+                TimeSpan tiempo = new TimeSpan(hora, minuto, 0);
+            }
+            
+
+            DateTime fechaSeleccionada = DatePicker.SelectedDate.HasValue ? DatePicker.SelectedDate.Value : DateTime.MinValue;
+            if (int.TryParse(TxtBox_Hora.Text, out hora) && int.TryParse(TxtBox_Min.Text, out minuto))
+            {
+                TimeSpan tiempo = new TimeSpan(hora, minuto, 0);
+
+
+                fechaSeleccionada = fechaSeleccionada.Date + tiempo;
+
+
+                
+            }
+            return fechaSeleccionada;
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var borderAnimation = FindResource("BorderAnimation") as Storyboard;
             borderAnimation?.Begin();
         }
+        public List<TareaEntity> ObtenerLista()
+        {
+            // Aquí deberías tener la lógica para obtener tus datos y crear una lista de TareaEntity
+            List<TareaEntity> listaDeTareas = new List<TareaEntity>();
+            CrearTarea Creador = new CrearTarea();
+            
+            
+            listaDeTareas.Add(new TareaEntity { Name = Creador.NombreTxtBox.Text, Description = Creador.DescripTxtBox.Text, prioridad = Creador.BtnPrioridad.IsChecked, Due = false, Deadline = ObtenerHoraFecha()});
+            // ... o podrías cargar la lista desde algún origen de datos como un archivo o una base de datos
 
+            return listaDeTareas;
+        }
+
+
+        
+
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
         public void NuevaTarea()
         {
 
@@ -58,47 +107,32 @@ namespace Task_Manager.View
                 }
                 else { Tarea.prioridad = false; }
 
-                int hora, minuto;
-                if (int.TryParse(TxtBox_Hora.Text, out hora) && int.TryParse(TxtBox_Min.Text, out minuto))
-                {
-                    
-                    TimeSpan tiempo = new TimeSpan(hora, minuto, 0); 
-                }
-                else
-                {
 
-                }
+                Tarea.Deadline = ObtenerHoraFecha();
 
-                    DateTime fechaSeleccionada = DatePicker.SelectedDate.HasValue ? DatePicker.SelectedDate.Value : DateTime.MinValue;
-                if (int.TryParse(TxtBox_Hora.Text, out hora) && int.TryParse(TxtBox_Min.Text, out minuto))
-                {
-                    TimeSpan tiempo = new TimeSpan(hora, minuto, 0); 
-
-                    
-                    fechaSeleccionada = fechaSeleccionada.Date + tiempo;
-
-                    
-                    Tarea.Deadline = fechaSeleccionada;
-                }
 
 
 
             }
-            string jsonString = JsonSerializer.Serialize(Tarea);
+            List<TareaEntity> listaDeTareas = ObtenerLista(); // Aquí debes tener una lista de objetos TareaEntity
+            listaDeTareas.Add(Tarea);
+            string jsonString = JsonSerializer.Serialize(listaDeTareas);
+
             // Utilizando System.IO.Path para manejar rutas de archivo
             string rutaDirectorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Entity");
             string rutaArchivo = System.IO.Path.Combine(rutaDirectorio, "Tarea.json");
-            
+
             try
             {
+
                 if (!System.IO.Directory.Exists(rutaDirectorio))
                 {
                     System.IO.Directory.CreateDirectory(rutaDirectorio);
                 }
 
                 // Ahora intenta escribir el archivo
-                File.AppendAllText(rutaArchivo, jsonString);
-                Textblock.Text =("Archivo creado correctamente en: " + rutaArchivo);
+                File.WriteAllText(rutaArchivo, jsonString);
+                Textblock.Text = ("Archivo creado correctamente en: " + rutaArchivo);
             }
             catch (Exception ex)
             {
@@ -106,22 +140,7 @@ namespace Task_Manager.View
             }
 
 
-
-
-
-
-
         }
-
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
-
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {

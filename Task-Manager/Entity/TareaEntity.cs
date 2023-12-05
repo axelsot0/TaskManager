@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Task_Manager.Entity
 {
-    internal class TareaEntity
+    public class TareaEntity
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public string? Description { get; set; }
-        public bool prioridad { get; set; }
-        public bool Due { get; set; }
-        public DateTime Deadline { get; set; }
+        public bool? prioridad { get; set; }
+        public bool? Due { get; set; }
+        public DateTime? Deadline { get; set; }
         
     }
 }
