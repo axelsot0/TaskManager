@@ -16,6 +16,10 @@ using Task_Manager.Entity;
 using System.Text.Json;
 using System.IO;
 using System.Threading;
+using Newtonsoft.Json;
+using NewtonsoftJsonSerializer = Newtonsoft.Json.JsonSerializer;
+using SystemTextJsonSerializer = System.Text.Json.JsonSerializer;
+
 
 namespace Task_Manager.View
 {
@@ -72,35 +76,56 @@ namespace Task_Manager.View
         }
         public List<TareaEntity> ObtenerLista()
         {
-            // Aquí deberías tener la lógica para obtener tus datos y crear una lista de TareaEntity
+            string rutaDirectorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Entity");
+            string rutaArchivo = System.IO.Path.Combine(rutaDirectorio, "Tarea.json");
+
             List<TareaEntity> listaDeTareas = new List<TareaEntity>();
-            
-            TareaEntity Tarea = new TareaEntity();
+
+            try
             {
-                Tarea.Name = NombreTxtBox.Text;
-                Tarea.Description = DescripTxtBox.Text;
-                if (BtnPrioridad.IsChecked == true)
+                if (System.IO.File.Exists(rutaArchivo))
                 {
-                    Tarea.prioridad = true;
+                    string json = File.ReadAllText(rutaArchivo);
+                    listaDeTareas = JsonConvert.DeserializeObject<List<TareaEntity>>(json);
                 }
-                else { Tarea.prioridad = false; }
-
-
-                Tarea.Deadline = ObtenerHoraFecha();
-
-
-
-
             }
-
-            listaDeTareas.Add(new TareaEntity { Name = Tarea.Name, Description = Tarea.Description, prioridad = Tarea.prioridad, Due = false, Deadline = Tarea.Deadline });
-            // ... o podrías cargar la lista desde algún origen de datos como un archivo o una base de datos
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al leer el archivo: " + ex.Message);
+            }
 
             return listaDeTareas;
         }
 
+        public void AgregarNuevaTarea(TareaEntity nuevaTarea)
+        {
+            List<TareaEntity> listaDeTareas = ObtenerLista();
+            listaDeTareas.Add(nuevaTarea);
 
-        
+            string rutaDirectorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Entity");
+            string rutaArchivo = System.IO.Path.Combine(rutaDirectorio, "Tarea.json");
+
+            try
+            {
+                if (!System.IO.Directory.Exists(rutaDirectorio))
+                {
+                    System.IO.Directory.CreateDirectory(rutaDirectorio);
+                }
+
+                string jsonString = JsonConvert.SerializeObject(listaDeTareas);
+                File.WriteAllText(rutaArchivo, jsonString);
+                Textblock.Text = ("Archivo actualizado correctamente en: " + rutaArchivo);
+            }
+            catch (Exception ex)
+            {
+                Textblock.Text = ("Error al escribir en el archivo: " + ex.Message);
+            }
+        }
+
+
+
+
+
 
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -110,35 +135,7 @@ namespace Task_Manager.View
                 DragMove();
             }
         }
-        public void NuevaTarea()
-        {
-
-            
-            List<TareaEntity> listaDeTareas = ObtenerLista();
-
-            
-
-            string rutaDirectorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Entity");
-            string rutaArchivo = System.IO.Path.Combine(rutaDirectorio, "Tarea.json");
-
-            try
-            {
-                // Si no existe el directorio, créalo
-                if (!System.IO.Directory.Exists(rutaDirectorio))
-                {
-                    System.IO.Directory.CreateDirectory(rutaDirectorio);
-                }
-
-                // Guarda la lista actualizada en un nuevo archivo JSON
-                string jsonString = JsonSerializer.Serialize(listaDeTareas);
-                File.WriteAllText(rutaArchivo, jsonString);
-                Textblock.Text = ("Archivo creado correctamente en: " + rutaArchivo);
-            }
-            catch (Exception ex)
-            {
-                Textblock.Text = ("Error al escribir en el archivo: " + ex.Message);
-            }
-        }
+        
 
 
     
@@ -159,7 +156,8 @@ namespace Task_Manager.View
 
         private void BtnRegistrarClick(object sender, RoutedEventArgs e)
         {
-            NuevaTarea();
+            TareaEntity nuevaTarea = new TareaEntity(); 
+            AgregarNuevaTarea(nuevaTarea);
             TaskManager home = new TaskManager();
             home.Show();
             this.Close();
