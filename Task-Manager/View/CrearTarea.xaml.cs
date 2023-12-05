@@ -74,10 +74,26 @@ namespace Task_Manager.View
         {
             // Aquí deberías tener la lógica para obtener tus datos y crear una lista de TareaEntity
             List<TareaEntity> listaDeTareas = new List<TareaEntity>();
-            CrearTarea Creador = new CrearTarea();
             
-            
-            listaDeTareas.Add(new TareaEntity { Name = Creador.NombreTxtBox.Text, Description = Creador.DescripTxtBox.Text, prioridad = Creador.BtnPrioridad.IsChecked, Due = false, Deadline = ObtenerHoraFecha()});
+            TareaEntity Tarea = new TareaEntity();
+            {
+                Tarea.Name = NombreTxtBox.Text;
+                Tarea.Description = DescripTxtBox.Text;
+                if (BtnPrioridad.IsChecked == true)
+                {
+                    Tarea.prioridad = true;
+                }
+                else { Tarea.prioridad = false; }
+
+
+                Tarea.Deadline = ObtenerHoraFecha();
+
+
+
+
+            }
+
+            listaDeTareas.Add(new TareaEntity { Name = Tarea.Name, Description = Tarea.Description, prioridad = Tarea.prioridad, Due = false, Deadline = Tarea.Deadline });
             // ... o podrías cargar la lista desde algún origen de datos como un archivo o una base de datos
 
             return listaDeTareas;
@@ -97,40 +113,24 @@ namespace Task_Manager.View
         public void NuevaTarea()
         {
 
-            TareaEntity Tarea = new TareaEntity();
-            {
-                Tarea.Name = NombreTxtBox.Text;
-                Tarea.Description = DescripTxtBox.Text;
-                if (BtnPrioridad.IsChecked == true)
-                {
-                    Tarea.prioridad = true;
-                }
-                else { Tarea.prioridad = false; }
+            
+            List<TareaEntity> listaDeTareas = ObtenerLista();
 
+            
 
-                Tarea.Deadline = ObtenerHoraFecha();
-
-
-
-
-            }
-            List<TareaEntity> listaDeTareas = ObtenerLista(); // Aquí debes tener una lista de objetos TareaEntity
-            listaDeTareas.Add(Tarea);
-            string jsonString = JsonSerializer.Serialize(listaDeTareas);
-
-            // Utilizando System.IO.Path para manejar rutas de archivo
             string rutaDirectorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Entity");
             string rutaArchivo = System.IO.Path.Combine(rutaDirectorio, "Tarea.json");
 
             try
             {
-
+                // Si no existe el directorio, créalo
                 if (!System.IO.Directory.Exists(rutaDirectorio))
                 {
                     System.IO.Directory.CreateDirectory(rutaDirectorio);
                 }
 
-                // Ahora intenta escribir el archivo
+                // Guarda la lista actualizada en un nuevo archivo JSON
+                string jsonString = JsonSerializer.Serialize(listaDeTareas);
                 File.WriteAllText(rutaArchivo, jsonString);
                 Textblock.Text = ("Archivo creado correctamente en: " + rutaArchivo);
             }
@@ -138,9 +138,10 @@ namespace Task_Manager.View
             {
                 Textblock.Text = ("Error al escribir en el archivo: " + ex.Message);
             }
-
-
         }
+
+
+    
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
