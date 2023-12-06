@@ -305,6 +305,70 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
+            <Button Content="✖"
+                FontSize="25"
+                Opacity="2"
+                HorizontalAlignment="Left"
+                Margin="654,380,0,0"
+                VerticalAlignment="Top"
+                Height="60"
+                Foreground="White"
+                Width="60"
+                BorderThickness="0"
+        
+                Background="#FFC52626"
+                Padding="0" RenderTransformOrigin="0.5,0.5" Click="ButtonBorrar_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="180.000"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Ellipse x:Name="ellipse"
+                                Fill="{TemplateBinding Background}"
+                                Width="0"
+                                Height="0"
+                                Opacity="1"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ellipse"
+                                            Storyboard.TargetProperty="Width"
+                                            To="60"
+                                            Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetName="ellipse"
+                                            Storyboard.TargetProperty="Height"
+                                            To="60"
+                                            Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ellipse"
+                                            Storyboard.TargetProperty="Width"
+                                            To="0"
+                                            Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetName="ellipse"
+                                            Storyboard.TargetProperty="Height"
+                                            To="0"
+                                            Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
             <!-- Corrección en la estructura del botón -->
         </Grid>

@@ -36,29 +36,63 @@ namespace Task_Manager.View
                 {
                     System.IO.Directory.CreateDirectory(directorio);
                 }
-                else if (!System.IO.File.Exists(rutaArchivo))
-                {
-                    // El archivo no existe en el directorio, manejar este caso
-                    // Puedes crear el archivo o mostrar un mensaje al usuario
-                }
+                
                 else
                 {
                     string json = File.ReadAllText(rutaArchivo);
 
-                    // Convierte el JSON a una lista de objetos (suponiendo que sean objetos con las propiedades Name, Description, Prioridad y Deadline)
+                    
                     List<TareaEntity> tareas = JsonConvert.DeserializeObject<List<TareaEntity>>(json);
 
-                    // Asigna la lista como origen de datos para el DataGrid
-                    Tabla.ItemsSource = tareas; // Aquí se establece ItemsSource en lugar de usar Tabla.Items.Add(tareas)
+                    
+                    Tabla.ItemsSource = tareas; 
                 }
             }
             catch (Exception ex)
             {
-                // Manejar cualquier excepción que pueda ocurrir durante la carga de datos
-                // Puedes mostrar un mensaje de error o registrar la excepción
+                
                 Console.WriteLine("Error al cargar datos: " + ex.Message);
             }
         }
+        public void BorrarTarea()
+        {
+            if(Tabla.SelectedItem != null)
+    {
+                TareaEntity tareaSeleccionada = Tabla.SelectedItem as TareaEntity;
+
+                try
+                {
+                    // Eliminar la tarea seleccionada del DataGrid
+                    (Tabla.ItemsSource as List<TareaEntity>).Remove(tareaSeleccionada);
+                    Tabla.ItemsSource = null;
+                    // Obtener la lista de tareas del archivo JSON
+                    string directorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Entity");
+                    string rutaArchivo = System.IO.Path.Combine(directorio, "Tarea.json");
+
+                    if (System.IO.File.Exists(rutaArchivo))
+                    {
+                        string json = File.ReadAllText(rutaArchivo);
+                        List<TareaEntity> tareas = JsonConvert.DeserializeObject<List<TareaEntity>>(json);
+
+                        // Remover la tarea seleccionada de la lista de tareas
+                        tareas.Remove(tareaSeleccionada);
+
+                        // Actualizar el archivo JSON con la lista de tareas actualizada
+                        string nuevaJson = JsonConvert.SerializeObject(tareas);
+                        File.WriteAllText(rutaArchivo, nuevaJson);
+
+                        // Volver a cargar los datos en el DataGrid
+                        Tabla.ItemsSource = tareas;
+                        Tabla.Items.Refresh(); // Actualizar el DataGrid
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al borrar la tarea: " + ex.Message);
+                }
+            }
+        }
+
 
 
         public TaskManager()
@@ -119,6 +153,10 @@ namespace Task_Manager.View
 
         }
 
-        
+        private void ButtonBorrar_Click(object sender, RoutedEventArgs e)
+        {
+            BorrarTarea();
+            LoadDataGrid();
+        }
     }
 }
