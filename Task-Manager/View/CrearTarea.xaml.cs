@@ -158,15 +158,26 @@ namespace Task_Manager.View
         {
             string nombre = NombreTxtBox.Text; // Reemplaza esto con el valor deseado
             string descripcion = DescripTxtBox.Text; // Reemplaza esto con el valor deseado
-            bool prioridad = BtnPrioridad.IsChecked.Value; // Reemplaza esto con el valor deseado
+            bool prioridad = BtnPrioridad.IsChecked.Value;
+            string dot;
+            
+            if (prioridad)
+            {
+                dot = "Hola";
+
+            }
+            else {
+                dot = "";
+            }
             DateTime deadline = ObtenerHoraFecha(); // Reemplaza esto con el valor deseado
 
             TareaEntity nuevaTarea = new TareaEntity
             {
                 Name = nombre,
                 Description = descripcion,
-                prioridad = prioridad,
-                Deadline = deadline
+                prioridad = dot,
+                Deadline = deadline, 
+                Due = false
             };
 
             AgregarNuevaTarea(nuevaTarea);

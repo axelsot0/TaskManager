@@ -218,7 +218,9 @@
           FontFamily="Montserrat"
           AutoGenerateColumns="False"
           RowBackground="Transparent" 
-          CanUserAddRows="False"      >
+          CanUserAddRows="False"
+          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+          >
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" HeaderStyle="{StaticResource HeaderStyle}" Width="150"  />
