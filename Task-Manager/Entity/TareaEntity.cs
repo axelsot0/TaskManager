@@ -23,11 +23,11 @@ namespace Task_Manager.Entity
                 return false;
 
             TareaEntity other = (TareaEntity)obj;
-            return this.Name == other.Name && this.Description == other.Description && this.prioridad == other.prioridad /* Otros campos... */;
+            return this.Name == other.Name && this.Description == other.Description && this.prioridad == other.prioridad && other.Deadline == this.Deadline;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Name, Description, prioridad /* Otros campos... */);
+            return HashCode.Combine(Name, Description, prioridad,Deadline);
         }
-    }    } 
+}   } 

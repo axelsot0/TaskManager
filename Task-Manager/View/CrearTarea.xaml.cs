@@ -148,16 +148,16 @@ namespace Task_Manager.View
             home.Show();
             this.Close();
 
-            // Animaciones para la nueva ventana TaskManager
-            DoubleAnimation heightAnim = new DoubleAnimation(0, 450, TimeSpan.FromSeconds(0.6)); // Aumento gradual de 0 a 300
+            
+            DoubleAnimation heightAnim = new DoubleAnimation(0, 450, TimeSpan.FromSeconds(0.6)); 
             home.BeginAnimation(Window.HeightProperty, heightAnim);
 
         }
 
         private void BtnRegistrarClick(object sender, RoutedEventArgs e)
         {
-            string nombre = NombreTxtBox.Text; // Reemplaza esto con el valor deseado
-            string descripcion = DescripTxtBox.Text; // Reemplaza esto con el valor deseado
+            string nombre = NombreTxtBox.Text;
+            string descripcion = DescripTxtBox.Text; 
             bool prioridad = BtnPrioridad.IsChecked.Value;
             string dot;
             
@@ -169,7 +169,7 @@ namespace Task_Manager.View
             else {
                 dot = "";
             }
-            DateTime deadline = ObtenerHoraFecha(); // Reemplaza esto con el valor deseado
+            DateTime deadline = ObtenerHoraFecha(); 
 
             TareaEntity nuevaTarea = new TareaEntity
             {

@@ -62,10 +62,10 @@ namespace Task_Manager.View
 
                 try
                 {
-                    // Eliminar la tarea seleccionada del DataGrid
+                    
                     (Tabla.ItemsSource as List<TareaEntity>).Remove(tareaSeleccionada);
                     Tabla.ItemsSource = null;
-                    // Obtener la lista de tareas del archivo JSON
+                    
                     string directorio = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Entity");
                     string rutaArchivo = System.IO.Path.Combine(directorio, "Tarea.json");
 
@@ -74,17 +74,16 @@ namespace Task_Manager.View
                         string json = File.ReadAllText(rutaArchivo);
                         List<TareaEntity> tareas = JsonConvert.DeserializeObject<List<TareaEntity>>(json);
 
-                        // Remover la tarea seleccionada de la lista de tareas
+                        
                         tareas.Remove(tareaSeleccionada);
 
-                        // Actualizar el archivo JSON con la lista de tareas actualizada
+                        
                         string nuevaJson = JsonConvert.SerializeObject(tareas);
                         File.WriteAllText(rutaArchivo, nuevaJson);
 
-                        // Volver a cargar los datos en el DataGrid
+                        
                         Tabla.ItemsSource = tareas;
-                        Tabla.Items.Refresh(); // Actualizar el DataGrid
-                    }
+                        Tabla.Items.Refresh();
                 }
                 catch (Exception ex)
                 {
